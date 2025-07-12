@@ -1,0 +1,55 @@
+ <div class="home-page">
+        <a href="index.html"style="text-decoration:none;">Home</a><!--Hyperlink to register to the website-->
+     </div>
+<h2>Your Cart</h2>
+<div class="cart-box" id="cartData">
+  <p>Loading cart...</p>
+</div>
+
+<script>
+  const cartDataEl = document.getElementById("cartData");
+
+  function loadCart() {
+    const raw = localStorage.getItem("cartData");
+    if (!raw) {
+      cartDataEl.innerHTML = "<p>No cart found. Go back and add items!</p>";
+      return;
+    }
+
+    const cart = JSON.parse(raw);
+    let output = "<ul>";
+
+    for (let item in cart.items) {
+      const qty = cart.items[item].quantity;
+      const price = cart.items[item].price;
+      output += `<li>${item}: ${qty} × $${price} = $${qty * price}</li>`;
+    }
+    output += "</ul>";
+    output += `<p><strong>Total Items:</strong> ${cart.totalItems}</p>`;
+    output += `<p><strong>Total Cost:</strong> $${cart.totalCost}</p>`;
+
+    cartDataEl.innerHTML = output;
+  }
+
+  loadCart();
+ 
+</script>
+
+<button onclick="goToPayment()">🧾 Proceed to Payment</button>
+ 
+<script>
+  function goToPayment() {
+    const cartData = localStorage.getItem("cartData");
+
+    if (cartData) {
+      // ✅ Cart exists – navigate to payment page
+      window.location.href = "paymentoptions.html";
+    } else {
+      alert("Your cart is empty. Please add items before proceeding.");
+    }
+  }
+</script>
+
+
+</body>
+</html>

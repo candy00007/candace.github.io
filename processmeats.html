@@ -1,0 +1,96 @@
+<!--Candace Augustine Henry-->
+<!--Student ID# 20120019-->
+<!--Senior Seminar II-->
+<!--Albrosco Limited Site Development-->
+<!DOCTYPE html><!--Start of the Code-->
+<html lang="en"><!--Coding Starts in English Language-->
+   <head>
+    <title>Chinese Products</title>
+    <meta charset="utf-8"><!--Code to convert characters-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--View Website on different devices-->
+    <script src="https://kit.fontawesome.com/828af1cec2.js" crossorigin="anonymous"></script><!--code to allow use of fontsawesome fonts-->
+    <link rel="stylesheet" href="albrosco1.css"><!--Code that links the css to the html-->
+    </head>
+    <div class="home-page">
+        <a href="albrosco.html"style="text-decoration:none;">Home</a><!--Hyperlink to register to the website-->
+     </div> 
+   <body>
+  <h2>ALBROSCO's CHINESE PRODUCTS</h2>
+  <button onclick="saveCart()">💾 Save to Cart</button>
+  <button onclick="location.href='cart.html'">🛒 Go to Cart</button>
+
+  
+<div class="cart-summary"> <!--cart summary-->
+  <p>Total Items Selected: <span id="totalItems">0</span></p>
+  <p>Total Cost: $<span id="totalCost">0</span></p>
+</div>
+
+  <div class="product">
+    <img src="C:/Users/canda/OneDrive/Desktop/htdocs/pics/salami.png" alt="">
+     <div class="controls">
+      <span>Salami ($25)</span>
+     <br><button onclick="addItem('Salami', 25)">+</button>
+       <span id="dishwashingQty">0</span>
+    <button onclick="removeItem('Salami', 25)">-</button></div>
+    </div>
+  </div>
+
+  <div class="product">
+    <img src="C:/Users/canda/OneDrive/Desktop/htdocs/pics/hotdog.png" alt="">
+     <div class="controls">
+      <span>'Hot Dog ($40)</span>
+     <br><button onclick="addItem('Hot Dog', 25)">+</button>
+     <span id="dishwashingQty">0</span>
+    <button onclick="removeItem('Hot Dog', 25)">-</button></div>
+    </div>
+  </div>
+  
+    <div class="product">
+    <img src="C:/Users/canda/OneDrive/Desktop/htdocs/pics/sau.png" alt="">
+     <div class="controls">
+      <span>Chicken Salami ($25)</span>
+     <br><button onclick="addItem('Chicken Salami', 25)">+</button>
+     <span id="dishwashingQty">0</span>
+    <button onclick="removeItem('Chicken Salami', 25)">-</button></div>
+    </div>
+  </div>
+
+<script>
+  let cart = {};
+
+  function addItem(name, price) {
+    if (!cart[name]) cart[name] = { quantity: 0, price };
+    cart[name].quantity++;
+    updateDisplay();
+  }
+
+  function updateDisplay() {
+    let totalItems = 0;
+    let totalCost = 0;
+
+    for (let item in cart) {
+      totalItems += cart[item].quantity;
+      totalCost += cart[item].quantity * cart[item].price;
+    }
+
+    document.getElementById("totalItems").textContent = totalItems;
+    document.getElementById("totalCost").textContent = totalCost;
+  }
+
+  function saveCart() {
+    const totalItems = document.getElementById("totalItems").textContent;
+    const totalCost = document.getElementById("totalCost").textContent;
+
+    // Save structured cart to localStorage
+    localStorage.setItem("cartData", JSON.stringify({
+      items: cart,
+      totalItems: totalItems,
+      totalCost: totalCost
+    }));
+
+    alert("Cart saved! You can continue shopping across pages.");
+  }
+</script>
+
+</body>
+</html>
